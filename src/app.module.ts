@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config/configuration';
 import { UserModule } from './user/user.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -11,7 +12,8 @@ import { UserModule } from './user/user.module';
       isGlobal: true,
       load: [configuration]
     }),
-    UserModule
+    UserModule,
+    DatabaseModule
   ],
   controllers: [AppController],
   providers: [AppService],
