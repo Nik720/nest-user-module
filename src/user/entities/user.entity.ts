@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -15,8 +16,15 @@ export default class User {
     email: string;
 
     @Column()
+    @Exclude()
     password: string;
 
     @Column({type: 'boolean',default: true })
     isActive: boolean;
+
+    @Column({
+        nullable: true
+    })
+    @Exclude()
+    public currentHashedRefreshToken?: string;
 }
