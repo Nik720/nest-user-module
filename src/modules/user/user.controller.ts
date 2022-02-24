@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, UseGuards, SerializeOptions } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import JwtAuthenticationGuard from 'src/authentication/guards/jwt-authentication.guard';
+import JwtAuthenticationGuard from 'src/modules/authentication/guards/jwt-authentication.guard';
 
 @Controller('user')
+@SerializeOptions({
+  strategy: 'excludeAll'
+})
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

@@ -3,9 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config/configuration';
-import { UserModule } from './user/user.module';
+import { UserModule } from './modules/user/user.module';
 import { DatabaseModule } from './database/database.module';
-import { AuthenticationModule } from './authentication/authentication.module';
+import { AuthenticationModule } from './modules/authentication/authentication.module';
 
 @Module({
   imports: [

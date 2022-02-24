@@ -1,7 +1,7 @@
-import { Body, Controller, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Req, Res, SerializeOptions, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
-import User from 'src/user/entities/user.entity';
-import { UserService } from 'src/user/user.service';
+import User from 'src/modules/user/entities/user.entity';
+import { UserService } from 'src/modules/user/user.service';
 import { AuthenticationService } from './authentication.service';
 import { RegisterDto } from './dto/register.dto';
 import JwtAuthenticationGuard from './guards/jwt-authentication.guard';
@@ -10,6 +10,9 @@ import { LocalAuthenticationGuard } from './guards/localAuthentication.guard';
 import IRequestWithUser from './interface/requestWithUser.interface';
 
 @Controller('authentication')
+@SerializeOptions({
+  strategy: 'excludeAll'
+})
 export class AuthenticationController {
 
     constructor(
@@ -26,13 +29,13 @@ export class AuthenticationController {
     @Post('login')
     @UseGuards(LocalAuthenticationGuard)
     @HttpCode(200)
-    async login(@Req() request: IRequestWithUser, @Res() response: Response){
+    async login(@Req() request: IRequestWithUser){
       const {user} = request;
       const accessTokenCookies = await this.authService.getCookiesWithJwtToken({userId: user.id, email: user.email});
       const { refreshTokenCookie, token } = await this.authService.getCookiesWithRefreshToken({userId: user.id, email: user.email});
       await this.userService.setCurrentRefreshToken(token, user.id);
-      response.setHeader('Set-Cookie', [accessTokenCookies, refreshTokenCookie]);
-      response.send(user);
+      request.res.setHeader('Set-Cookie', [accessTokenCookies, refreshTokenCookie]);
+      return user;
     }
 
     @UseGuards(JwtAuthenticationGuard)
