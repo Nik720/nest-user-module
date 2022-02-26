@@ -1,5 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post, Req, Res, SerializeOptions, UseGuards } from '@nestjs/common';
-import { Response } from 'express';
+import { Body, Controller, Get, HttpCode, Post, Req, SerializeOptions, UseGuards } from '@nestjs/common';
 import User from 'src/modules/user/entities/user.entity';
 import { UserService } from 'src/modules/user/user.service';
 import { AuthenticationService } from './authentication.service';
@@ -40,10 +39,10 @@ export class AuthenticationController {
 
     @UseGuards(JwtAuthenticationGuard)
     @Post('log-out')
-    async logOut(@Req() request: IRequestWithUser, @Res() response: Response) {
+    async logOut(@Req() request: IRequestWithUser) {
       await this.userService.removeRefreshToken(request.user.id);
-      response.setHeader('Set-Cookie', await this.authService.getCookiesForLogout());
-      return response.sendStatus(200);
+      request.res.setHeader('Set-Cookie', await this.authService.getCookiesForLogout());
+      return request.res.sendStatus(200);
     }
 
     @UseGuards(JwtRefreshGuard)

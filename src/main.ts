@@ -14,7 +14,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(
     app.get(Reflector)
   ));
-  // app.useGlobalInterceptors(new ExcludeNullInterceptor())
+  app.useGlobalInterceptors(new ExcludeNullInterceptor())
   app.use(cookieParser());
   await app.listen(3000);
 }
