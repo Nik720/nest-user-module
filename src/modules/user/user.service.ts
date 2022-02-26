@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -8,6 +8,8 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
+  private readonly logContext = UserService.name;
+  private readonly logger = new Logger(UserService.name)
   constructor(
     @InjectRepository(User) 
     private userRepository: Repository<User>
@@ -23,6 +25,7 @@ export class UserService {
   }
 
   findOne(id: number): Promise<User> {
+    this.logger.log('Getting user ');
     return this.userRepository.findOne(id);
   }
 
@@ -39,6 +42,7 @@ export class UserService {
     if(user) {
       return user;
     }
+    this.logger.error('User with this email does not exists', '', this.logContext);
     throw new HttpException('User with this email does not exists', HttpStatus.NOT_FOUND);
   }
 

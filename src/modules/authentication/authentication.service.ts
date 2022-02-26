@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { UserService } from 'src/modules/user/user.service';
 import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthenticationService {
+    private readonly logger = new Logger(AuthenticationService.name)
     constructor(
         private readonly userService: UserService,
         private readonly jwtService: JwtService,
@@ -23,8 +24,10 @@ export class AuthenticationService {
             return createdUser;
         } catch(error) {
             if(error?.code === 'ER_DUP_ENTRY') {
+                this.logger.error('Duplicate Email Address Found')
                 throw new HttpException("Email Address is already exists", HttpStatus.BAD_REQUEST);
             }
+            this.logger.error('Something went wrong', error.stack);
             throw new HttpException("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
