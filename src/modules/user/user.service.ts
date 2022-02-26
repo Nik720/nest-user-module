@@ -25,8 +25,12 @@ export class UserService {
   }
 
   findOne(id: number): Promise<User> {
-    this.logger.log('Getting user ');
-    return this.userRepository.findOne(id);
+    try {
+      return this.userRepository.findOne(id);
+    } catch (error) {
+      this.logger.error(`User is not exists with provided user id`, error.stack)
+      throw new HttpException('User with this id does not exists', HttpStatus.NOT_FOUND);
+    }
   }
 
   update(id: number, updateUserDto: UpdateUserDto): Promise<any> {
