@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import User from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { FileService } from 'src/modules/files/files.service';
 
 @Injectable()
 export class UserService {
@@ -12,7 +13,8 @@ export class UserService {
   private readonly logger = new Logger(UserService.name)
   constructor(
     @InjectRepository(User) 
-    private userRepository: Repository<User>
+    private userRepository: Repository<User>,
+    private readonly fileService: FileService
   ) {}
 
   create(createUserDto: CreateUserDto): Promise<User> {
@@ -77,5 +79,33 @@ export class UserService {
     }
   }
 
+  async addAvatar(userId: string, imageBuffer: Buffer, fileName: string) {
+    const user = await this.getById(userId);
+    if (user.avatar) {
+      await this.userRepository.update(userId, {
+        ...user,
+        avatar: null
+      });
+      await this.fileService.deletePublicFile(user.avatar.id);
+    }
+    const avatar = await this.fileService.uploadPublicFiles(imageBuffer, fileName);
+    await this.userRepository.update(userId, {
+      ...user,
+      avatar
+    });
+    return avatar;
+  }
+
+  async deleteAvatar(userId: string) {
+    const user = await this.getById(userId);
+    const fileId = user.avatar?.id;
+    if (fileId) {
+      await this.userRepository.update(userId, {
+        ...user,
+        avatar: null
+      });
+      await this.fileService.deletePublicFile(fileId)
+    }
+  }
 
 }
