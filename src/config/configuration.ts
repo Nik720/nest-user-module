@@ -11,5 +11,9 @@ export default () => ({
     jwt_secret: process.env.JWT_SECRET,
     jwt_expiration_time: process.env.JWT_EXPIRATION_TIME || 60000,
     jwt_refresh_secret: process.env.JWT_REFRESH_TOKEN_SECRET,
-    jwt_refresh_expiration_time: process.env.JWT_REFRESH_EXPIRATION_TIME || 600000
+    jwt_refresh_expiration_time: process.env.JWT_REFRESH_EXPIRATION_TIME || 600000,
+    AWS_REGION: process.env.AWS_REGION,
+    AWS_S3_ACCESS_KEY: process.env.AWS_S3_ACCESS_KEY,
+    AWS_S3_SECRET_KEY: process.env.AWS_S3_SECRET_KEY,
+    AWS_PUBLIC_BUCKET_NAME: process.env.AWS_PUBLIC_BUCKET_NAME,
   });
