@@ -1,5 +1,6 @@
 import { Expose } from "class-transformer";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import PublicFile from "src/modules/files/publicFile.entity";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export default class User {
@@ -30,4 +31,15 @@ export default class User {
         nullable: true
     })
     public currentHashedRefreshToken?: string;
+
+    @JoinColumn()
+    @OneToOne(
+        () => PublicFile,
+        {
+            eager: true,
+            nullable: true
+        }
+    )
+    @Expose()
+    public avatar?: PublicFile
 }
