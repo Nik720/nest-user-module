@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import DatabaseLogger from 'src/modules/logs/databaseLogger';
-import Log from 'src/modules/logs/log.entity';
-import User from 'src/modules/user/entities/user.entity';
+import DatabaseLogger from 'src/modules/logger/databaseLogger';
 
 @Module({
     imports: [
@@ -12,7 +10,7 @@ import User from 'src/modules/user/entities/user.entity';
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => ({
                 type: 'mysql',
-                logger: new DatabaseLogger(),
+                logger: configService.get('LOG_DB_QUERY')===true ? new DatabaseLogger() : 'file',
                 host: configService.get('database.host'),
                 port: configService.get('database.port'),
                 username: configService.get('database.user'),

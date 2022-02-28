@@ -12,6 +12,7 @@ export default () => ({
     jwt_expiration_time: process.env.JWT_EXPIRATION_TIME || 60000,
     jwt_refresh_secret: process.env.JWT_REFRESH_TOKEN_SECRET,
     jwt_refresh_expiration_time: process.env.JWT_REFRESH_EXPIRATION_TIME || 600000,
+    LOG_DB_QUERY: process.env.LOG_DB_QUERY,
     AWS_REGION: process.env.AWS_REGION,
     AWS_S3_ACCESS_KEY: process.env.AWS_S3_ACCESS_KEY,
     AWS_S3_SECRET_KEY: process.env.AWS_S3_SECRET_KEY,
