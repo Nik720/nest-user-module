@@ -19,8 +19,7 @@ import User from 'src/modules/user/entities/user.entity';
                 password: configService.get('database.password'),
                 database: configService.get('database.dbname'),
                 entities: [
-                    User,
-                    Log
+                    __dirname + '/../**/*.entity{.ts,.js}',
                 ],
                 synchronize: true,
             })
