@@ -12,7 +12,7 @@ let config: ConnectionOptions = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   synchronize: false, // Auto sync entity changes
-  logging: "all",
+  logging: false,
   "entities": ["dist/**/*.entity{ .ts,.js}"],
   migrations: [__dirname + 'src/database/migrations/**/*{.ts,.js}'],
   cli: {

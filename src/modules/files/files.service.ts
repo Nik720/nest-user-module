@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
 import { S3 } from "aws-sdk";
-import PublicFile from "src/modules/files/publicFile.entity";
+import PublicFile from "src/entity/publicFile.entity";
 import { Repository } from "typeorm";
 import { v4 as uuid } from 'uuid';
 
