@@ -1,6 +1,6 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
 import { map, Observable } from "rxjs";
-import { recursivelyStripNullValues } from "./utils";
+import { recursivelyStripNullValues } from "../../utils/utils";
 
 @Injectable()
 export class ExcludeNullInterceptor implements NestInterceptor {

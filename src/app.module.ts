@@ -12,7 +12,7 @@ import {
   WinstonModule,
   utilities as nestWinstonModuleUtilities,
 } from 'nest-winston';
-import { WinstonLoggerService } from './utils/winstonLoggerService';
+import { WinstonLoggerService } from './shared/services/winstonLoggerService';
 const wlogger:any = new WinstonLoggerService();
 @Module({
   imports: [
