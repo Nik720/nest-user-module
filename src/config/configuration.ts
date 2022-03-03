@@ -17,4 +17,10 @@ export default () => ({
     AWS_S3_ACCESS_KEY: process.env.AWS_S3_ACCESS_KEY,
     AWS_S3_SECRET_KEY: process.env.AWS_S3_SECRET_KEY,
     AWS_PUBLIC_BUCKET_NAME: process.env.AWS_PUBLIC_BUCKET_NAME,
+
+    EMAIL_SERVICE: process.env.EMAIL_SERVICE,
+    EMAIL_USER: process.env.EMAIL_USER,
+    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
+
+    
   });

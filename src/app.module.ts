@@ -13,6 +13,8 @@ import {
   utilities as nestWinstonModuleUtilities,
 } from 'nest-winston';
 import { WinstonLoggerService } from './shared/services/winstonLoggerService';
+import { EmailModule } from './modules/email/email.module';
+import { ScheduleModule } from '@nestjs/schedule';
 const wlogger:any = new WinstonLoggerService();
 @Module({
   imports: [
@@ -24,7 +26,9 @@ const wlogger:any = new WinstonLoggerService();
     }),
     UserModule,
     DatabaseModule,
-    AuthenticationModule
+    AuthenticationModule,
+    EmailModule,
+    ScheduleModule.forRoot()
   ],
   controllers: [AppController],
   providers: [
