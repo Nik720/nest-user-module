@@ -3,7 +3,7 @@ import CustomLogger from './customLogger';
 import { ConfigModule } from '@nestjs/config';
 import LogsService from './logs.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import Log from './log.entity';
+import Log from '../../entity/log.entity';
  
 @Module({
   imports: [ConfigModule, TypeOrmModule.forFeature([Log])],

@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, Post, Req, SerializeOptions, UseGuards } from '@nestjs/common';
-import User from 'src/modules/user/entities/user.entity';
+import User from 'src/entity/user.entity';
 import { UserService } from 'src/modules/user/user.service';
 import { AuthenticationService } from './authentication.service';
 import { RegisterDto } from './dto/register.dto';

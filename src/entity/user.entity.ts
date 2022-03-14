@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import PublicFile from "src/modules/files/publicFile.entity";
+import PublicFile from "src/entity/publicFile.entity";
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
